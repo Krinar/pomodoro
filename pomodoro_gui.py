@@ -44,14 +44,3 @@ class ui_pomodoro(object):
         self.pushButton.setText(_translate("MainWindow", "START"))
         self.pushButton_2.setText(_translate("MainWindow", "STOP"))
         self.label.setText(_translate("MainWindow", ""))
-
-'''
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = ui_pomodoro()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
-'''
