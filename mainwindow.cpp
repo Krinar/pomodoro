@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    this->setWindowFlags(Qt::CustomizeWindowHint);
+    //this->setWindowFlags(Qt::CustomizeWindowHint);
     ui->setupUi(this);
 
 }
