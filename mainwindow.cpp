@@ -1,16 +1,18 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+    pomodoro = new Pomodoro;
+    this->setCentralWidget(pomodoro);
+
+
+    // WINDOW
     //this->setWindowFlags(Qt::CustomizeWindowHint);
-    ui->setupUi(this);
+    setStyleSheet("background-color: #f08080");
+    setWindowTitle("Pomodoro");
+    //setFixedHeight(500);
+    //setFixedWidth(500);
 
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
+    connect(pomodoro, SIGNAL(quiteApp()), this, SLOT(close()));
+    connect(pomodoro, SIGNAL(showApp()), this, SLOT(showNormal()));
 }
