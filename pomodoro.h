@@ -24,6 +24,11 @@ private:
     int rest;
     int stop;
 
+    struct defaultPomodoroSetting {
+        const int WORK = 25;
+        const int REST = 5;
+    };
+
     QTimer *counter;
 
     // UI
@@ -32,10 +37,12 @@ private:
     QPushButton *resetButton;
     QLabel      *timer;
     QLabel      *sessionType;
+    QLabel      *progress;
 
     //Layouts
     QHBoxLayout *buttonsLayout;
     QHBoxLayout *timerLayout;
+    QHBoxLayout *progressLayout;
     QVBoxLayout *infoLayout;
     QVBoxLayout *mainLayout;
 
@@ -49,6 +56,7 @@ private:
 
 
     QString getTime();
+    QString percentage();
 
 private slots:
     void startPomodoro();

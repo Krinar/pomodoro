@@ -57,6 +57,17 @@ void Pomodoro::createLayout() {
     timer->setFont(font);
     timer->setStyleSheet("color: #fff");
 
+
+    // Creating the progress text
+    progress = new QLabel;
+    progress->setText(percentage());
+    font.setPointSize(20);
+    font.setBold(true);
+    progress->setFont(font);
+    progress->setStyleSheet("color: #fff");
+
+
+
     // Creating info to display:
     sessionType = new QLabel("WORK");
     sessionType->setAlignment(Qt::AlignCenter);
@@ -77,6 +88,14 @@ void Pomodoro::createLayout() {
     timerLayout->addWidget(timer);
     timerLayout->addStretch();
 
+    // Creating progress layout
+    progressLayout = new QHBoxLayout;
+    progressLayout->addStretch();
+    progressLayout->addWidget(progress);
+    progressLayout->addStretch();
+
+
+
     // Creating the info layout
     infoLayout = new QVBoxLayout();
     infoLayout->addWidget(sessionType);
@@ -86,6 +105,7 @@ void Pomodoro::createLayout() {
     mainLayout->addStretch();
     mainLayout->addLayout(infoLayout);
     mainLayout->addLayout(timerLayout);
+    mainLayout->addLayout(progressLayout);
     mainLayout->addStretch();
     mainLayout->addLayout(buttonsLayout);
     mainLayout->addSpacing(20);
@@ -111,6 +131,7 @@ void Pomodoro::updateTimer() {
     }
 
     timer->setText(getTime());
+    progress->setText(percentage());
 }
 
 void Pomodoro::startPomodoro() {
@@ -134,6 +155,11 @@ QString Pomodoro::getTime() {
     else min_string = QString::number(min);
 
     return min_string + ":" + sec_string;
+}
+
+QString Pomodoro::percentage() {
+    if (workSession) return QString::number(int((100 - timeElapsed / 60. * 100 / 25))) + '%';
+    else return QString::number(int((100 - timeElapsed / 60. * 100 / 5))) + '%';
 }
 
 void Pomodoro::resetPomodoro() {
@@ -165,7 +191,7 @@ void Pomodoro::nextSession() {
 void Pomodoro::updateSessiontype() {
     QString text;
     if (workSession) text = "Work";
-    else text = "Rest";
+    else text = "REST";
 
     sessionType->setText(text);
 }
