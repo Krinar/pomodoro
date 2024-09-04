@@ -8,6 +8,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QTimer>
+#include <QStackedLayout>
 #include "CircularProgress.h"
 
 class Pomodoro : public QWidget
@@ -31,6 +32,7 @@ private:
     };
 
     QTimer *counter;
+    CircularProgress *CircleProgressBar;
 
     // UI
     QPushButton *startButton;
@@ -41,13 +43,14 @@ private:
     QLabel      *progress;
 
 
+
     //Layouts
     QHBoxLayout *buttonsLayout;
     QHBoxLayout *timerLayout;
     QHBoxLayout *progressLayout;
     QVBoxLayout *infoLayout;
     QVBoxLayout *mainLayout;
-    //QHBoxLayout *circleProgress;
+    QStackedLayout *timer_circle;
 
 
 

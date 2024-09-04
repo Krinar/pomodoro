@@ -4,15 +4,14 @@
 #include <QApplication>
 #include <QWidget>
 #include <QPainter>
+#include <QLabel>
 
 class CircularProgress : public QWidget {
     Q_OBJECT
 
 public:
     CircularProgress(QWidget *parent = nullptr, double value = 0.0, QColor color = Qt::blue)
-        : QWidget(parent), value(value), color(color) {
-        setFixedSize(100, 100);
-    }
+        : QWidget(parent), value(value), color(color){}
 
 protected:
     void paintEvent(QPaintEvent *) override {
@@ -23,14 +22,13 @@ protected:
         int startAngle = 90 * 16;
         int spanAngle = -value * 360 * 16;
 
-        painter.setPen(QPen(Qt::gray, 10));
+        painter.setPen(QPen(Qt::white, 10));
         painter.drawArc(rectangle, 0, 360 * 16);
 
         painter.setPen(QPen(color, 10));
         painter.drawArc(rectangle, startAngle, spanAngle);
-
-        painter.setPen(Qt::black);
         painter.drawText(rectangle, Qt::AlignCenter, QString::number(value * 100) + "%");
+
     }
 
 private:

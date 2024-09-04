@@ -9,7 +9,7 @@ Pomodoro::Pomodoro(QWidget *parent) : QWidget(parent) {
     connect(this, SIGNAL(sessionEnd()), this, SLOT(nextSession()));
     connect(this, SIGNAL(sessionEnd()), this, SLOT(updateSessiontype()));
     setLayout(mainLayout);
-    setFixedHeight(350);
+    setFixedHeight(500);
 }
 
 void Pomodoro::setVariables() {
@@ -67,7 +67,7 @@ void Pomodoro::createLayout() {
     progress->setStyleSheet("color: #fff");
 
     // Creating the circleProgress
-
+    CircleProgressBar = new CircularProgress(timer, .5, QColor{0,128,128});
 
 
     // Creating info to display:
@@ -85,18 +85,24 @@ void Pomodoro::createLayout() {
     buttonsLayout->addWidget(resetButton);
 
     // Creating timer layout
+    /*
     timerLayout = new QHBoxLayout;
     timerLayout->addStretch();
     timerLayout->addWidget(timer);
     timerLayout->addStretch();
-
+    */
     // Creating progress layout
     progressLayout = new QHBoxLayout;
     progressLayout->addStretch();
     progressLayout->addWidget(progress);
     progressLayout->addStretch();
 
-
+    // Creating stacked layout
+    timer_circle = new QStackedLayout;
+    timer_circle->setStackingMode(QStackedLayout::StackAll);
+    timer_circle->setAlignment(timer_circle, Qt::AlignCenter);
+    timer_circle->addWidget(timer);
+    timer_circle->addWidget(CircleProgressBar);
 
     // Creating the info layout
     infoLayout = new QVBoxLayout();
@@ -106,8 +112,8 @@ void Pomodoro::createLayout() {
     mainLayout = new QVBoxLayout;
     mainLayout->addStretch();
     mainLayout->addLayout(infoLayout);
-    //mainLayout->addWidget(new CircularProgress(nullptr, .5, QColor{0,128,128}));
-    mainLayout->addLayout(timerLayout);
+    //mainLayout->addWidget();
+    mainLayout->addLayout(timer_circle);
     mainLayout->addLayout(progressLayout);
     mainLayout->addStretch();
     mainLayout->addLayout(buttonsLayout);
