@@ -66,6 +66,8 @@ void Pomodoro::createLayout() {
     progress->setFont(font);
     progress->setStyleSheet("color: #fff");
 
+    // Creating the circleProgress
+
 
 
     // Creating info to display:
@@ -104,6 +106,7 @@ void Pomodoro::createLayout() {
     mainLayout = new QVBoxLayout;
     mainLayout->addStretch();
     mainLayout->addLayout(infoLayout);
+    //mainLayout->addWidget(new CircularProgress(nullptr, .5, QColor{0,128,128}));
     mainLayout->addLayout(timerLayout);
     mainLayout->addLayout(progressLayout);
     mainLayout->addStretch();
