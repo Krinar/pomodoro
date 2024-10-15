@@ -71,10 +71,13 @@ void Pomodoro::createLayout() {
     progress->setStyleSheet("color: #fff");
 
     // Creating the circleProgress
-    CircleProgressBar = new CircularProgress(timer, 0, QColor{0,128,128}, getTime());
+    CircleProgressBar = new CircularProgress(progress, 0, QColor{255,255,255}, getTime());
     timerLayout = new QHBoxLayout;
+    //timerLayout->addStretch();
     timerLayout->addWidget(CircleProgressBar);
-    timerLayout->addWidget(timer);
+    //timerLayout->addStretch();
+    //timerLayout->setAlignment(Qt::AlignCenter);
+    //timerLayout->addWidget(timer);
 
     // Creating info to display:
     sessionType = new QLabel("WORK");
@@ -120,7 +123,6 @@ void Pomodoro::createLayout() {
     mainLayout = new QVBoxLayout;
     mainLayout->addStretch();
     mainLayout->addLayout(infoLayout);
-    mainLayout->addSpacing(50);
     mainLayout->addLayout(timerLayout);
     mainLayout->addLayout(progressLayout);
     mainLayout->addStretch();
