@@ -49,26 +49,32 @@ void Pomodoro::createLayout() {
     resetButton->setIconSize(QSize(100, 100));//(resetPixmap.rect().size());
 
     // Creating the timer text
+
     timer = new QLabel;
+    QFont font_timer;
+    font_timer.setPointSize(47);
+    font_timer.setBold(true);
+    timer->setFont(font_timer);
     timer->setText(getTime());
-    QFont font;
-    font.setPointSize(65);
-    font.setBold(true);
-    timer->setFont(font);
+    timer->setStyleSheet("QLabel { padding: 20px; }");
+    timer->setAlignment(Qt::AlignCenter);
     timer->setStyleSheet("color: #fff");
 
 
     // Creating the progress text
     progress = new QLabel;
     progress->setText(percentage());
+    QFont font;
     font.setPointSize(20);
     font.setBold(true);
     progress->setFont(font);
     progress->setStyleSheet("color: #fff");
 
     // Creating the circleProgress
-    CircleProgressBar = new CircularProgress(timer, .5, QColor{0,128,128});
-
+    CircleProgressBar = new CircularProgress(timer, 0, QColor{0,128,128}, getTime());
+    timerLayout = new QHBoxLayout;
+    timerLayout->addWidget(CircleProgressBar);
+    timerLayout->addWidget(timer);
 
     // Creating info to display:
     sessionType = new QLabel("WORK");
@@ -84,26 +90,27 @@ void Pomodoro::createLayout() {
     buttonsLayout->addWidget(startButton);
     buttonsLayout->addWidget(resetButton);
 
-    // Creating timer layout
-    /*
-    timerLayout = new QHBoxLayout;
-    timerLayout->addStretch();
-    timerLayout->addWidget(timer);
-    timerLayout->addStretch();
-    */
     // Creating progress layout
     progressLayout = new QHBoxLayout;
     progressLayout->addStretch();
     progressLayout->addWidget(progress);
     progressLayout->addStretch();
 
-    // Creating stacked layout
-    timer_circle = new QStackedLayout;
 
-    timer_circle->addWidget(timer);
-    timer_circle->addWidget(CircleProgressBar);
+    /*
+    // Creating stacked layout
+    // Create widget for combine timer and progressBar
+    QWidget *timer_widget = new QWidget();
+    stacked_timer = new QVBoxLayout(timer_widget);
+    // Add compenent to Layout
+    //stacked_timer->addWidget(timer);
+    stacked_timer->addWidget(CircleProgressBar);
+    timer_circle = new QStackedLayout;
     timer_circle->setStackingMode(QStackedLayout::StackAll);
-    //timer_circle->setAlignment(timer_circle, Qt::AlignCenter);
+    // Add layout to StackedLayout
+    timer_circle->addWidget(timer_widget);
+    */
+
 
     // Creating the info layout
     infoLayout = new QVBoxLayout();
@@ -113,10 +120,8 @@ void Pomodoro::createLayout() {
     mainLayout = new QVBoxLayout;
     mainLayout->addStretch();
     mainLayout->addLayout(infoLayout);
-    //mainLayout->addWidget();
-    mainLayout->addStretch();
-    mainLayout->addLayout(timer_circle);
-    mainLayout->addStretch();
+    mainLayout->addSpacing(50);
+    mainLayout->addLayout(timerLayout);
     mainLayout->addLayout(progressLayout);
     mainLayout->addStretch();
     mainLayout->addLayout(buttonsLayout);
@@ -141,9 +146,13 @@ void Pomodoro::updateTimer() {
     if (timeElapsed < 0) {
         emit sessionEnd();
     }
-
-    timer->setText(getTime());
+    QString timer_text = getTime();
+    timer->setText(timer_text);
     progress->setText(percentage());
+    CircleProgressBar->text_timer = timer_text;
+    CircleProgressBar->value = (100 - timeElapsed / 60. * 100 / 25) / 100;
+    CircleProgressBar->update();
+
 }
 
 void Pomodoro::startPomodoro() {

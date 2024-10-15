@@ -50,7 +50,10 @@ private:
     QHBoxLayout *progressLayout;
     QVBoxLayout *infoLayout;
     QVBoxLayout *mainLayout;
+    /*
+    QVBoxLayout *stacked_timer;
     QStackedLayout *timer_circle;
+    */
 
 
 
