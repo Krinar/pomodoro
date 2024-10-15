@@ -26,6 +26,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         pomodoro.h pomodoro.cpp
         resources.qrc
+        CircularProgress.h
+
     )
 
 else()

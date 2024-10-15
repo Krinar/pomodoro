@@ -8,6 +8,8 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QTimer>
+#include <QStackedLayout>
+#include "CircularProgress.h"
 
 class Pomodoro : public QWidget
 {
@@ -24,7 +26,13 @@ private:
     int rest;
     int stop;
 
+    struct defaultPomodoroSetting {
+        const int WORK = 25;
+        const int REST = 5;
+    };
+
     QTimer *counter;
+    CircularProgress *CircleProgressBar;
 
     // UI
     QPushButton *startButton;
@@ -32,12 +40,20 @@ private:
     QPushButton *resetButton;
     QLabel      *timer;
     QLabel      *sessionType;
+    QLabel      *progress;
+
+
 
     //Layouts
     QHBoxLayout *buttonsLayout;
     QHBoxLayout *timerLayout;
+    QHBoxLayout *progressLayout;
     QVBoxLayout *infoLayout;
     QVBoxLayout *mainLayout;
+    /*
+    QVBoxLayout *stacked_timer;
+    QStackedLayout *timer_circle;
+    */
 
 
 
@@ -49,6 +65,7 @@ private:
 
 
     QString getTime();
+    QString percentage();
 
 private slots:
     void startPomodoro();
