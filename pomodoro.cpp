@@ -99,10 +99,11 @@ void Pomodoro::createLayout() {
 
     // Creating stacked layout
     timer_circle = new QStackedLayout;
-    timer_circle->setStackingMode(QStackedLayout::StackAll);
-    timer_circle->setAlignment(timer_circle, Qt::AlignCenter);
+
     timer_circle->addWidget(timer);
     timer_circle->addWidget(CircleProgressBar);
+    timer_circle->setStackingMode(QStackedLayout::StackAll);
+    //timer_circle->setAlignment(timer_circle, Qt::AlignCenter);
 
     // Creating the info layout
     infoLayout = new QVBoxLayout();
@@ -113,7 +114,9 @@ void Pomodoro::createLayout() {
     mainLayout->addStretch();
     mainLayout->addLayout(infoLayout);
     //mainLayout->addWidget();
+    mainLayout->addStretch();
     mainLayout->addLayout(timer_circle);
+    mainLayout->addStretch();
     mainLayout->addLayout(progressLayout);
     mainLayout->addStretch();
     mainLayout->addLayout(buttonsLayout);

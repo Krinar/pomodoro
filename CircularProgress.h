@@ -11,14 +11,16 @@ class CircularProgress : public QWidget {
 
 public:
     CircularProgress(QWidget *parent = nullptr, double value = 0.0, QColor color = Qt::blue)
-        : QWidget(parent), value(value), color(color){}
+        : QWidget(parent), value(value), color(color){
+        //setFixedSize(400, 400);
+    }
 
 protected:
     void paintEvent(QPaintEvent *) override {
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
 
-        QRectF rectangle(10, 10, 80, 80);
+        QRectF rectangle((width() - 200) / 2, (height() - 200) / 2, 200, 200);
         int startAngle = 90 * 16;
         int spanAngle = -value * 360 * 16;
 
@@ -27,7 +29,7 @@ protected:
 
         painter.setPen(QPen(color, 10));
         painter.drawArc(rectangle, startAngle, spanAngle);
-        painter.drawText(rectangle, Qt::AlignCenter, QString::number(value * 100) + "%");
+        //painter.drawText(rectangle, Qt::AlignCenter, QString::number(value * 100) + "%");
 
     }
 
