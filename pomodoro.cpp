@@ -23,30 +23,43 @@ void Pomodoro::setVariables() {
 
 void Pomodoro::createLayout() {
 
-    startButton = new QPushButton();
+
+    // startButton = new QPushButton();
+    // connect(startButton, SIGNAL(clicked()), this, SLOT(startPomodoro()));
+    // startButton->setStyleSheet("border: none; color: #fff");
+    // QPixmap pixmap(":/icons/Resources/play.png");
+    // QIcon ButtonIcon(pixmap);
+    // startButton->setIcon(ButtonIcon);
+    // startButton->setIconSize(QSize(100, 100));//(pixmap.rect().size());
+    startButton = new QPushButton("Start");
     connect(startButton, SIGNAL(clicked()), this, SLOT(startPomodoro()));
-    startButton->setStyleSheet("border: none; color: #fff");
-    QPixmap pixmap(":/icons/Resources/play.png");
-    QIcon ButtonIcon(pixmap);
-    startButton->setIcon(ButtonIcon);
-    startButton->setIconSize(QSize(100, 100));//(pixmap.rect().size());
+    startButton->setFixedSize(120, 50);
+    startButton->setStyleSheet("font-family: 'Inconsolata'; border: none; color: #fff; font-size: 20px; padding: 15px 5px; background-color: #1A535C; border-radius: 10px;");
 
-    stopButton = new QPushButton();
+    // stopButton = new QPushButton();
+    // connect(stopButton, SIGNAL(clicked()), this, SLOT(stopPomodoro()));
+    // stopButton->setStyleSheet("border: none; color: #fff");
+    // QPixmap stopPixmap(":/icons/Resources/stop.png");
+    // QIcon stopIcon(stopPixmap);
+    // stopButton->setIcon(stopIcon);
+    // stopButton->setIconSize(QSize(100, 100));//stopPixmap.rect().size());
+    stopButton = new QPushButton("Stop");
     connect(stopButton, SIGNAL(clicked()), this, SLOT(stopPomodoro()));
-    stopButton->setStyleSheet("border: none; color: #fff");
-    QPixmap stopPixmap(":/icons/Resources/stop.png");
-    QIcon stopIcon(stopPixmap);
-    stopButton->setIcon(stopIcon);
-    stopButton->setIconSize(QSize(100, 100));//stopPixmap.rect().size());
+    stopButton->setFixedSize(120, 50);
+    stopButton->setStyleSheet("font-family: 'Inconsolata'; border: none; color: #fff; font-size: 20px; padding: 15px 5px; background-color: #1A535C; border-radius: 10px;");
 
 
-    resetButton = new QPushButton();
+    // resetButton = new QPushButton();
+    // connect(resetButton, SIGNAL(clicked()), this, SLOT(resetPomodoro()));
+    // resetButton->setStyleSheet("border: none; color: #fff");
+    // QPixmap resetPixmap(":/icons/Resources/reset.png");
+    // QIcon resetIcon(resetPixmap);
+    // resetButton->setIcon(resetIcon);
+    // resetButton->setIconSize(QSize(100, 100));//(resetPixmap.rect().size());
+    resetButton = new QPushButton("Reset");
     connect(resetButton, SIGNAL(clicked()), this, SLOT(resetPomodoro()));
-    resetButton->setStyleSheet("border: none; color: #fff");
-    QPixmap resetPixmap(":/icons/Resources/reset.png");
-    QIcon resetIcon(resetPixmap);
-    resetButton->setIcon(resetIcon);
-    resetButton->setIconSize(QSize(100, 100));//(resetPixmap.rect().size());
+    resetButton->setFixedSize(120, 50);
+    resetButton->setStyleSheet("font-family: 'Inconsolata'; border: none; color: #fff; font-size: 20px; padding: 15px 5px; background-color: #1A535C; border-radius: 10px;");
 
     // Creating the timer text
 
@@ -68,10 +81,10 @@ void Pomodoro::createLayout() {
     font.setPointSize(20);
     font.setBold(true);
     progress->setFont(font);
-    progress->setStyleSheet("color: #4ECDC4;");
+    progress->setStyleSheet("color: #1A535C");
 
     // Creating the circleProgress
-    CircleProgressBar = new CircularProgress(progress, 0, QColor("#4ECDC4"), getTime());
+    CircleProgressBar = new CircularProgress(progress, 0, QColor("#1A535C"), getTime());
     timerLayout = new QHBoxLayout;
     //timerLayout->addStretch();
     timerLayout->addWidget(CircleProgressBar);
