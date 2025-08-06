@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // WINDOW
     //this->setWindowFlags(Qt::CustomizeWindowHint);
-    setStyleSheet("background-color: #f08080");
+    setStyleSheet("background-color: #F4F4F9");
     setWindowTitle("Pomodoro");
     //setFixedHeight(500);
     //setFixedWidth(500);

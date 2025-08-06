@@ -58,7 +58,7 @@ void Pomodoro::createLayout() {
     timer->setText(getTime());
     timer->setStyleSheet("QLabel { padding: 20px; }");
     timer->setAlignment(Qt::AlignCenter);
-    timer->setStyleSheet("color: #fff");
+    timer->setStyleSheet("color: #1E2D3D");
 
 
     // Creating the progress text
@@ -68,10 +68,10 @@ void Pomodoro::createLayout() {
     font.setPointSize(20);
     font.setBold(true);
     progress->setFont(font);
-    progress->setStyleSheet("color: #fff");
+    progress->setStyleSheet("color: #4ECDC4;");
 
     // Creating the circleProgress
-    CircleProgressBar = new CircularProgress(progress, 0, QColor{255,255,255}, getTime());
+    CircleProgressBar = new CircularProgress(progress, 0, QColor("#4ECDC4"), getTime());
     timerLayout = new QHBoxLayout;
     //timerLayout->addStretch();
     timerLayout->addWidget(CircleProgressBar);
@@ -84,7 +84,7 @@ void Pomodoro::createLayout() {
     sessionType->setAlignment(Qt::AlignCenter);
     font.setPointSize(20);
     sessionType->setFont(font);
-    sessionType->setStyleSheet("color: #fff;");
+    sessionType->setStyleSheet("color: #2E2E2E;");
 
 
     // Creating button layout

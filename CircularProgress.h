@@ -17,7 +17,8 @@ public:
 public:
     double value;
     QString text_timer;
-    QFont font_timer = QFont("Inconsolata", 50);
+    QFont font_timer = QFont("Inter", 50);
+    // QFont font_timer = QFont("Inconsolata:Bold", 50);
 
 protected:
     void paintEvent(QPaintEvent *) override {
@@ -28,10 +29,10 @@ protected:
         int startAngle = 90 * 16;
         int spanAngle = -value * 360 * 16;
 
-        painter.setPen(QPen(QColor(205, 92, 92), 10));
+        painter.setPen(QPen(QColor("#C7FCEC"), 10));
         painter.drawArc(rectangle, 0, 360 * 16);
 
-        painter.setPen(QPen(color, 10));
+        painter.setPen(QPen(QColor("2E2E2E"), 10));
         painter.drawArc(rectangle, startAngle, spanAngle);
         painter.setFont(font_timer);
         painter.drawText(rectangle, Qt::AlignCenter, text_timer);
