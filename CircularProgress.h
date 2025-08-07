@@ -34,7 +34,7 @@ protected:
 
         painter.setPen(QPen(QColor("#1A535C"), 10)); //1A535C
         painter.drawArc(rectangle, startAngle, spanAngle);
-        painter.setPen(QPen(QColor("2E2E2E"), 10));
+        painter.setPen(QPen(QColor("#2E2E2E"), 10));
         painter.setFont(font_timer);
         painter.drawText(rectangle, Qt::AlignCenter, text_timer);
     }

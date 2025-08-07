@@ -1,8 +1,8 @@
 #include "pomodoro.h"
 
 Pomodoro::Pomodoro(QWidget *parent) : QWidget(parent) {
-    setVariables();
 
+    setVariables();
     createLayout();
     initializeTimer();
 
@@ -10,6 +10,8 @@ Pomodoro::Pomodoro(QWidget *parent) : QWidget(parent) {
     connect(this, SIGNAL(sessionEnd()), this, SLOT(updateSessiontype()));
     setLayout(mainLayout);
     setFixedHeight(500);
+
+
 }
 
 void Pomodoro::setVariables() {
@@ -23,43 +25,61 @@ void Pomodoro::setVariables() {
 
 void Pomodoro::createLayout() {
 
-
-    // startButton = new QPushButton();
-    // connect(startButton, SIGNAL(clicked()), this, SLOT(startPomodoro()));
-    // startButton->setStyleSheet("border: none; color: #fff");
-    // QPixmap pixmap(":/icons/Resources/play.png");
-    // QIcon ButtonIcon(pixmap);
-    // startButton->setIcon(ButtonIcon);
-    // startButton->setIconSize(QSize(100, 100));//(pixmap.rect().size());
     startButton = new QPushButton("Start");
     connect(startButton, SIGNAL(clicked()), this, SLOT(startPomodoro()));
     startButton->setFixedSize(120, 50);
-    startButton->setStyleSheet("font-family: 'Inconsolata'; border: none; color: #fff; font-size: 20px; padding: 15px 5px; background-color: #1A535C; border-radius: 10px;");
+    startButton->setStyleSheet(R"(
+            QPushButton {
+                font-family: 'Inconsolata';
+                border: none;
+                color: #fff;
+                font-size: 20px;
+                padding: 15px 5px;
+                background-color: #1A535C;
+                border-radius: 10px;
+            }
+            QPushButton:hover {
+                background-color: #2E2E2E;
+            }
+            )");
 
-    // stopButton = new QPushButton();
-    // connect(stopButton, SIGNAL(clicked()), this, SLOT(stopPomodoro()));
-    // stopButton->setStyleSheet("border: none; color: #fff");
-    // QPixmap stopPixmap(":/icons/Resources/stop.png");
-    // QIcon stopIcon(stopPixmap);
-    // stopButton->setIcon(stopIcon);
-    // stopButton->setIconSize(QSize(100, 100));//stopPixmap.rect().size());
     stopButton = new QPushButton("Stop");
     connect(stopButton, SIGNAL(clicked()), this, SLOT(stopPomodoro()));
     stopButton->setFixedSize(120, 50);
-    stopButton->setStyleSheet("font-family: 'Inconsolata'; border: none; color: #fff; font-size: 20px; padding: 15px 5px; background-color: #1A535C; border-radius: 10px;");
+    stopButton->setStyleSheet(R"(
+            QPushButton {
+                font-family: 'Inconsolata';
+                border: none;
+                color: #fff;
+                font-size: 20px;
+                padding: 15px 5px;
+                background-color: #1A535C;
+                border-radius: 10px;
+            }
+            QPushButton:hover {
+                background-color: #2E2E2E;
+            }
+            )");
 
-
-    // resetButton = new QPushButton();
-    // connect(resetButton, SIGNAL(clicked()), this, SLOT(resetPomodoro()));
-    // resetButton->setStyleSheet("border: none; color: #fff");
-    // QPixmap resetPixmap(":/icons/Resources/reset.png");
-    // QIcon resetIcon(resetPixmap);
-    // resetButton->setIcon(resetIcon);
-    // resetButton->setIconSize(QSize(100, 100));//(resetPixmap.rect().size());
     resetButton = new QPushButton("Reset");
     connect(resetButton, SIGNAL(clicked()), this, SLOT(resetPomodoro()));
     resetButton->setFixedSize(120, 50);
-    resetButton->setStyleSheet("font-family: 'Inconsolata'; border: none; color: #fff; font-size: 20px; padding: 15px 5px; background-color: #1A535C; border-radius: 10px;");
+    resetButton->setStyleSheet(R"(
+            QPushButton {
+                font-family: 'Inconsolata';
+                border: none;
+                color: #fff;
+                font-size: 20px;
+                padding: 15px 5px;
+                background-color: #1A535C;
+                border-radius: 10px;
+            }
+            QPushButton:hover {
+                background-color: #2E2E2E;
+            }
+            )");
+
+
 
     // Creating the timer text
 
@@ -86,11 +106,7 @@ void Pomodoro::createLayout() {
     // Creating the circleProgress
     CircleProgressBar = new CircularProgress(progress, 0, QColor("#1A535C"), getTime());
     timerLayout = new QHBoxLayout;
-    //timerLayout->addStretch();
     timerLayout->addWidget(CircleProgressBar);
-    //timerLayout->addStretch();
-    //timerLayout->setAlignment(Qt::AlignCenter);
-    //timerLayout->addWidget(timer);
 
     // Creating info to display:
     sessionType = new QLabel("WORK");
@@ -100,11 +116,31 @@ void Pomodoro::createLayout() {
     sessionType->setStyleSheet("color: #2E2E2E;");
 
 
+    // Creating count completed
+    countCompleted = new QHBoxLayout;
+    countProgress = new QLabel("Completed:");
+    countProgress->setAlignment(Qt::AlignCenter);
+    font.setPointSize(20);
+    countProgress->setFont(font);
+    countProgress->setStyleSheet("color: #1A535C;");
+    countCompleted->addWidget(countProgress);
+    /// TODO
+    // QLabel *tomato = new QLabel();
+    // tomato->setPixmap(QPixmap(":/icons/Resources/tomatoes_2_32x32.png"));
+    // countCompleted->addWidget(tomato);
+
+
+
+
     // Creating button layout
     buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addStretch();
     buttonsLayout->addWidget(stopButton);
+    buttonsLayout->addSpacing(10);
     buttonsLayout->addWidget(startButton);
+    buttonsLayout->addSpacing(10);
     buttonsLayout->addWidget(resetButton);
+    buttonsLayout->addStretch();
 
     // Creating progress layout
     progressLayout = new QHBoxLayout;
@@ -112,37 +148,20 @@ void Pomodoro::createLayout() {
     progressLayout->addWidget(progress);
     progressLayout->addStretch();
 
-
-    /*
-    // Creating stacked layout
-    // Create widget for combine timer and progressBar
-    QWidget *timer_widget = new QWidget();
-    stacked_timer = new QVBoxLayout(timer_widget);
-    // Add compenent to Layout
-    //stacked_timer->addWidget(timer);
-    stacked_timer->addWidget(CircleProgressBar);
-    timer_circle = new QStackedLayout;
-    timer_circle->setStackingMode(QStackedLayout::StackAll);
-    // Add layout to StackedLayout
-    timer_circle->addWidget(timer_widget);
-    */
-
-
     // Creating the info layout
     infoLayout = new QVBoxLayout();
     infoLayout->addWidget(sessionType);
 
     // Creating main layout
     mainLayout = new QVBoxLayout;
-    mainLayout->addStretch();
     mainLayout->addLayout(infoLayout);
     mainLayout->addLayout(timerLayout);
     mainLayout->addLayout(progressLayout);
-    mainLayout->addStretch();
+    mainLayout->addSpacing(50);
+    mainLayout->addLayout(countCompleted);
+    mainLayout->addSpacing(20);
     mainLayout->addLayout(buttonsLayout);
     mainLayout->addSpacing(20);
-
-
 
 }
 

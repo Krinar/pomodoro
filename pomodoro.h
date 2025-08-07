@@ -41,6 +41,7 @@ private:
     QLabel      *timer;
     QLabel      *sessionType;
     QLabel      *progress;
+    QLabel      *countProgress;
 
 
 
@@ -50,10 +51,13 @@ private:
     QHBoxLayout *progressLayout;
     QVBoxLayout *infoLayout;
     QVBoxLayout *mainLayout;
+    QHBoxLayout *countCompleted;
     /*
     QVBoxLayout *stacked_timer;
     QStackedLayout *timer_circle;
     */
+
+    QLabel *tomato;
 
 
 
