@@ -18,7 +18,7 @@ public:
     double value;
     QString text_timer;
     //QFont font_timer = QFont("Inter", 50);
-    QFont font_timer = QFont("Inconsolata", 60, QFont::DemiBold);
+    QFont font_timer = QFont("Inconsolata Nerd Font Mono", 60, QFont::DemiBold);
 
 protected:
     void paintEvent(QPaintEvent *) override {

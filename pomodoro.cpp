@@ -17,7 +17,7 @@ Pomodoro::Pomodoro(QWidget *parent) : QWidget(parent) {
 void Pomodoro::setVariables() {
     workSession = true;
     sessionCount = 0;
-    session = 25;
+    session = 1;
     rest = 5;
     timeElapsed = 60 * session;
     stop = session * 60;
@@ -30,7 +30,7 @@ void Pomodoro::createLayout() {
     startButton->setFixedSize(120, 50);
     startButton->setStyleSheet(R"(
             QPushButton {
-                font-family: 'Inconsolata';
+                font-family: 'Inconsolata Nerd Font Mono';
                 border: none;
                 color: #fff;
                 font-size: 20px;
@@ -48,7 +48,7 @@ void Pomodoro::createLayout() {
     stopButton->setFixedSize(120, 50);
     stopButton->setStyleSheet(R"(
             QPushButton {
-                font-family: 'Inconsolata';
+                font-family: 'Inconsolata Nerd Font Mono';
                 border: none;
                 color: #fff;
                 font-size: 20px;
@@ -66,7 +66,7 @@ void Pomodoro::createLayout() {
     resetButton->setFixedSize(120, 50);
     resetButton->setStyleSheet(R"(
             QPushButton {
-                font-family: 'Inconsolata';
+                font-family: 'Inconsolata Nerd Font Mono';
                 border: none;
                 color: #fff;
                 font-size: 20px;
