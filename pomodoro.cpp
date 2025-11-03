@@ -17,7 +17,7 @@ Pomodoro::Pomodoro(QWidget *parent) : QWidget(parent) {
 void Pomodoro::setVariables() {
     workSession = true;
     sessionCount = 0;
-    session = 1;
+    session = 25;
     rest = 5;
     timeElapsed = 60 * session;
     stop = session * 60;
@@ -30,7 +30,7 @@ void Pomodoro::createLayout() {
     startButton->setFixedSize(120, 50);
     startButton->setStyleSheet(R"(
             QPushButton {
-                font-family: 'Inconsolata Nerd Font Mono';
+                font-family: 'Arial Rounded MT Bold';
                 border: none;
                 color: #fff;
                 font-size: 20px;
@@ -48,7 +48,7 @@ void Pomodoro::createLayout() {
     stopButton->setFixedSize(120, 50);
     stopButton->setStyleSheet(R"(
             QPushButton {
-                font-family: 'Inconsolata Nerd Font Mono';
+                font-family: 'Arial Rounded MT Bold';
                 border: none;
                 color: #fff;
                 font-size: 20px;
@@ -66,7 +66,7 @@ void Pomodoro::createLayout() {
     resetButton->setFixedSize(120, 50);
     resetButton->setStyleSheet(R"(
             QPushButton {
-                font-family: 'Inconsolata Nerd Font Mono';
+                font-family: 'Arial Rounded MT Bold';
                 border: none;
                 color: #fff;
                 font-size: 20px;
@@ -97,28 +97,27 @@ void Pomodoro::createLayout() {
     // Creating the progress text
     progress = new QLabel;
     progress->setText(percentage());
-    QFont font;
-    font.setPointSize(20);
-    font.setBold(true);
+    QFont font = QFont("Arial Rounded MT Bold", 25, QFont::DemiBold);
     progress->setFont(font);
     progress->setStyleSheet("color: #1A535C");
 
     // Creating the circleProgress
-    CircleProgressBar = new CircularProgress(progress, 0, QColor("#1A535C"), getTime());
+    CircleProgressBar = new CircularProgress(progress, 0, QColor(0x1A535C), getTime());
     timerLayout = new QHBoxLayout;
+    timerLayout->setAlignment(Qt::AlignCenter);
     timerLayout->addWidget(CircleProgressBar);
 
     // Creating info to display:
-    sessionType = new QLabel("WORK");
+    sessionType = new QLabel("Work");
     sessionType->setAlignment(Qt::AlignCenter);
-    font.setPointSize(20);
+    font.setPointSize(30);
     sessionType->setFont(font);
     sessionType->setStyleSheet("color: #2E2E2E;");
 
 
     // Creating count completed
     countCompleted = new QHBoxLayout;
-    countProgress = new QLabel("Completed:");
+    countProgress = new QLabel("Completed: " + QString::number(sessionCount));
     countProgress->setAlignment(Qt::AlignCenter);
     font.setPointSize(20);
     countProgress->setFont(font);
@@ -154,6 +153,7 @@ void Pomodoro::createLayout() {
 
     // Creating main layout
     mainLayout = new QVBoxLayout;
+    mainLayout->addSpacing(10);
     mainLayout->addLayout(infoLayout);
     mainLayout->addLayout(timerLayout);
     mainLayout->addLayout(progressLayout);
@@ -238,7 +238,7 @@ void Pomodoro::nextSession() {
         workSession = true;
         timeElapsed = session * 60;
         sessionCount++;
-
+        // countProgress = new QLabel("Completed: " + QString::number(sessionCount));
         emit sessionTypeChanged();
     }
 }
@@ -246,7 +246,7 @@ void Pomodoro::nextSession() {
 void Pomodoro::updateSessiontype() {
     QString text;
     if (workSession) text = "Work";
-    else text = "REST";
+    else text = "Rest";
 
     sessionType->setText(text);
 }

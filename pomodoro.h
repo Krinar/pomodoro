@@ -52,10 +52,6 @@ private:
     QVBoxLayout *infoLayout;
     QVBoxLayout *mainLayout;
     QHBoxLayout *countCompleted;
-    /*
-    QVBoxLayout *stacked_timer;
-    QStackedLayout *timer_circle;
-    */
 
     QLabel *tomato;
 

@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //this->setWindowFlags(Qt::CustomizeWindowHint);
     setStyleSheet("background-color: #F4F4F9");
     setWindowTitle("Pomodoro");
-    setFixedHeight(500);
-    setFixedWidth(800);
+    setFixedHeight(600);
+    setFixedWidth(600);
     QIcon WindowIcon(":/icons/Resources/tomatoes_2.png");
     this->setWindowIcon(WindowIcon);
 
