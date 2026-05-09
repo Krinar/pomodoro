@@ -1,90 +1,74 @@
 #ifndef POMODORO_H
 #define POMODORO_H
 
-#include <QWidget>
-#include <QLabel>
-#include <QPushButton>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+#include <QQuickPaintedItem>
+#include <QColor>
+#include <QBrush>
+#include <QPen>
+#include <QPainter>
+#include <QTime>
 #include <QTimer>
-#include <QStackedLayout>
-#include "CircularProgress.h"
+#include <Settings.h>
 
-class Pomodoro : public QWidget
+
+class Pomodoro : public QQuickPaintedItem
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString name MEMBER m_name NOTIFY nameChanged)
+    Q_PROPERTY(QColor backgroundColor MEMBER m_backgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(QColor borderActiveColor MEMBER m_borderActiveColor NOTIFY borderActiveColorChanged)
+    Q_PROPERTY(QColor borderNonActiveColor MEMBER m_borderNonActiveColor NOTIFY borderNonActiveColorChanged)
+    Q_PROPERTY(qreal angle MEMBER m_angle NOTIFY angleChanged)
+    Q_PROPERTY(QTime circleTime MEMBER m_circleTime NOTIFY circleTimeChanged)
+
 public:
-    Pomodoro(QWidget *parent = nullptr);
+    explicit Pomodoro(QQuickItem *parent = 0);
 
-private:
-    bool workSession;
-    int sessionCount;
-    int timeElapsed;
-    int session;
-    int rest;
-    int stop;
+    void paint(QPainter *painter) override;
 
-    struct defaultPomodoroSetting {
-        const int WORK = 25;
-        const int REST = 5;
-    };
+    Q_INVOKABLE void clear();
+    Q_INVOKABLE void start();
+    Q_INVOKABLE void stop();
 
-    QTimer *counter;
-    CircularProgress *CircleProgressBar;
-
-    // UI
-    QPushButton *startButton;
-    QPushButton *stopButton;
-    QPushButton *resetButton;
-    QLabel      *timer;
-    QLabel      *sessionType;
-    QLabel      *progress;
-    QLabel      *countProgress;
+    QString name() const;
+    QColor backgroundColor() const;
+    QColor borderActiveColor() const;
+    QColor borderNonActiveColor() const;
+    qreal angle() const;
+    QTime circleTime() const;
 
 
 
-    //Layouts
-    QHBoxLayout *buttonsLayout;
-    QHBoxLayout *timerLayout;
-    QHBoxLayout *progressLayout;
-    QVBoxLayout *infoLayout;
-    QVBoxLayout *mainLayout;
-    QHBoxLayout *countCompleted;
+public slots:
+    void setName(const QString name);
+    void setBackgroundColor(const QColor backgroundColor);
+    void setBorderActiveColor(const QColor borderActiveColor);
+    void setBorderNonActiveColor(const QColor borderNonActiveColor);
+    void setAngle(const qreal angle);
+    void setCircleTime(const QTime circleTime);
 
-    QLabel *tomato;
-
-
-
-    //Methods
-    void createLayout();
-    void initializeTimer();
-    void updateTimer();
-    void setVariables();
-
-
-    QString getTime();
-    QString percentage();
-
-private slots:
-    void startPomodoro();
-    void stopPomodoro();
-    void resetPomodoro();
-    void secondPassed();
-    void nextSession();
-    void updateSessiontype();
-    void showResponse();
-    void quitResponse();
 
 signals:
-    void sessionEnd();
-    void sessionTypeChanged();
-    void quitApp();
-    void showApp();
+
+    void cleared();
+    void nameChanged(const QString name);
+    void backgroundColorChanged(const QColor backgroundColor);
+    void borderActiveColorChanged(const QColor borderActiveColor);
+    void borderNonActiveColorChanged(const QColor borderNonActiveColor);
+    void angleChanged(const qreal angle);
+    void circleTimeChanged(const QTime circleTime);
+
+private:
+    QString     m_name;                 // Название объекта, по большей части до кучи добавлено
+    QColor      m_backgroundColor;      // Основной цвет фона
+    QColor      m_borderActiveColor;    // Цвет ободка, заполняющий при прогрессе ободок таймера
+    QColor      m_borderNonActiveColor; // Цвет ободка фоновый
+    qreal       m_angle;                // Угол поворота графика типа пирог, будет формировать прогресс на ободке
+    QTime       m_circleTime;           // Текущее время таймера
+    QTimer      *internalTimer;         // Таймер, по которому будет изменяться время
+
+    PomodoroTimeSettings settings;
 };
-
-
-
 
 #endif // POMODORO_H
